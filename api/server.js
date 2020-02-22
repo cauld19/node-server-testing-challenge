@@ -1,14 +1,39 @@
 const express = require('express');
 
-const bodyParser = require('body-parser')
-
-const apiRouter = require('./api-router');
+const Users = require('../users/users-model')
 
 const server = express();
 
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
+server.use(express.json());
 
-server.use('/api', apiRouter);
+server.get("/", (req, res) => {
+    res.status(200).json({ api: "up" });
+  });
 
-module.exports = server
+  server.get("/users", (req, res) => {
+    Users.getAll()
+      .then(users => {
+        res.status(200).json(users);
+      })
+      .catch(error => {
+        res.status(500).json(error);
+      });
+  });
+
+  server.post('/users', (req, res) => {
+    const newUser = req.body;
+    
+    console.log(req.body)
+      Users.add(newUser)
+        .then(user => {
+          
+          res.status(201).json(user)
+        })
+        .catch(err => {
+          res.status(500).json(err.message);
+        })
+});
+  
+  module.exports = server;
+
+

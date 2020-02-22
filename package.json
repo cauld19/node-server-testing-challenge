@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "test": "cross-env DB-ENV=testing jest --watch"
+    "test": "cross-env DB_ENV=testing jest --watch"
   },
   "jest": {
     "testEnvironment": "node"
@@ -29,8 +29,10 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "knex": "^0.20.10",
-    "sqlite3": "^4.1.1"
+    "sqlite3": "^4.1.1",
+    "superagent": "^5.2.2"
   }
 }
